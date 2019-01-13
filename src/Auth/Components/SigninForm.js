@@ -12,8 +12,7 @@ export default class SigninForm extends Component {
     super(props);
 
     this.state = {
-      firstname: '',
-      lastname: '',
+      name: '',
       email: '',
       password: '',
       repeatPassword: '',
@@ -28,8 +27,7 @@ export default class SigninForm extends Component {
 
   render () {
     const {
-      firstname,
-      lastname,
+      name,
       email,
       password,
       repeatPassword,
@@ -38,25 +36,13 @@ export default class SigninForm extends Component {
     return (
       <Form>
         <FormGroup>
-          <Label for="firstname">Nombre</Label>
+          <Label for="name">Nombre</Label>
           <Input
-            id="firstname"
-            name="firstname"
+            id="name"
+            name="name"
             type="text"
             placeholder="John"
-            value={firstname}
-            onChange={this.updateState}
-          />
-        </FormGroup>
-
-        <FormGroup>
-          <Label for="lastname">Apellidos</Label>
-          <Input
-            id="lastname"
-            name="lastname"
-            type="text"
-            placeholder="Doe"
-            value={lastname}
+            value={name}
             onChange={this.updateState}
           />
         </FormGroup>

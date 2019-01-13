@@ -1,4 +1,4 @@
-import Signin from './Signin/Signin'
+import Signin from './Auth/Containers/Signin'
 
 const routes = [
   {
