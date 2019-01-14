@@ -1,5 +1,9 @@
 export const SET_USER_DATA = 'SET_USER_DATA';
+export const SET_IS_SIGNIN_SUCCESS = 'SET_IS_SIGNIN_SUCCESS';
+export const SET_SIGNIN_ERROR = 'SET_SIGNIN_ERROR';
 
 export default {
   SET_USER_DATA,
+  SET_IS_SIGNIN_SUCCESS,
+  SET_SIGNIN_ERROR,
 };
