@@ -1,9 +1,9 @@
-import { SET_USER_DATA, SET_SIGNIN_ERROR, SET_IS_SIGNIN_SUCCESS } from '../Actions/types';
+import { SET_USER_DATA, SET_SIGNUP_ERROR, SET_IS_SIGNUP_SUCCESS } from '../Actions/types';
 
 const initialState = {
   user: {},
-  isSigninSuccess: false,
-  signinError: {},
+  isSignupSuccess: false,
+  signupError: {},
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,15 +16,15 @@ const reducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
-    case SET_IS_SIGNIN_SUCCESS:
+    case SET_IS_SIGNUP_SUCCESS:
       return {
         ...state,
-        isSigninSuccess: action.value,
+        isSignupSuccess: action.value,
       };
-    case SET_SIGNIN_ERROR:
+    case SET_SIGNUP_ERROR:
       return {
         ...state,
-        signinError: action.payload,
+        signupError: action.payload,
       };
     default:
       return state;

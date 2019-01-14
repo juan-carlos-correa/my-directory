@@ -10,7 +10,7 @@ import {
   FormFeedback,
 } from 'reactstrap';
 
-class SigninForm extends Component {
+class SignupForm extends Component {
   constructor (props) {
     super(props);
 
@@ -174,8 +174,8 @@ class SigninForm extends Component {
   }
 };
 
-SigninForm.propTypes = {
+SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default  SigninForm;
+export default  SignupForm;
