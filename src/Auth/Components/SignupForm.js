@@ -28,6 +28,20 @@ class SignupForm extends Component {
     };
   }
 
+  componentDidUpdate () {
+    const { isSignupSuccess } = this.props;
+
+    if (isSignupSuccess && !this.isFormClean()) {
+      this.cleanForm();
+    }
+  }
+
+  isFormClean = () => {
+    const { name, email, password, repeatPassword } = this.state;
+
+    return !name.length && !email.length && !password.length && !repeatPassword.length;
+  }
+
   updateState = ({ target }) => {
     const { name, value } = target;
 
@@ -127,6 +141,15 @@ class SignupForm extends Component {
     })
   }
 
+  cleanForm = () => {
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+      repeatPassword: '',
+    });
+  }
+
   render () {
     const {
       name,
@@ -210,6 +233,7 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isSignupSuccess: PropTypes.bool.isRequired,
 };
 
 export default  SignupForm;

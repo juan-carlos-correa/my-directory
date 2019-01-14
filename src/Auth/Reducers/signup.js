@@ -1,9 +1,14 @@
-import { SET_SIGNUP_ERROR, SET_IS_SIGNUP_SUCCESS } from '../Actions/types';
+import {
+  SET_SIGNUP_ERROR_MESSAGE,
+  SET_IS_SIGNUP_SUCCESS,
+  SET_IS_SIGNUP_ERROR
+} from '../Actions/types';
 
 const initialState = {
+  isSignupError: false,
   isSignupSuccess: false,
-  signupError: {},
-}
+  signupErrorMessage: '',
+};
 
 const signupReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -12,10 +17,15 @@ const signupReducer = (state = initialState, action) => {
         ...state,
         isSignupSuccess: action.value,
       };
-    case SET_SIGNUP_ERROR:
+    case SET_IS_SIGNUP_ERROR:
       return {
         ...state,
-        signupError: action.payload,
+        isSignupError: action.value,
+      };
+    case SET_SIGNUP_ERROR_MESSAGE:
+      return {
+        ...state,
+        signupErrorMessage: action.value,
       };
     default:
       return state;
