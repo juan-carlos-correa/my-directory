@@ -59,10 +59,10 @@ class SignupForm extends Component {
 
   getFormValidations = ({ name, email, password, repeatPassword }) => {
     const errors = {};
-    const nameValidator = Validators(name).isMinLength(3).isMaxLength(30).getResult();
-    const emailValidator = Validators(email).isEmail().getResult();
-    const passValidator = Validators(password).isMinLength(6).isMaxLength(60).getResult();
-    const repeatPassValidator = Validators(repeatPassword).isEqual(password).getResult();
+    const nameValidator = this.nameValidation(name);
+    const emailValidator = this.emailValidation(email);
+    const passValidator = this.passwordValidation(password);
+    const repeatPassValidator = this.repeatPasswordValidation(repeatPassword);
 
     if (!nameValidator.isValid) {
       errors.name = nameValidator.errors[0];
@@ -84,6 +84,36 @@ class SignupForm extends Component {
       isValid: Object.keys(errors).length === 0,
       errors,
     };
+  }
+
+  singleValidate = (e) => {
+    e.preventDefault();
+
+    const { errors } = this.state;
+    const { name, value } = e.target;
+    const methodName = `${name}Validation`;
+
+    const result = this[methodName](value);
+    errors[name] = result.isValid ? '' : result.errors[0];
+
+    return this.setState({ errors });
+  }
+
+  nameValidation = (name) => {
+    return Validators(name).isMinLength(3).isMaxLength(30).getResult();
+  }
+
+  emailValidation = (email) => {
+    return Validators(email).isEmail().getResult();
+  }
+
+  passwordValidation = (password) => {
+    return Validators(password).isMinLength(6).isMaxLength(60).getResult();
+  }
+
+  repeatPasswordValidation = (repeatPassword) => {
+    const { password } = this.state
+    return Validators(repeatPassword).isEqual(password).getResult();
   }
 
   resetErrors = () => {
@@ -117,6 +147,7 @@ class SignupForm extends Component {
             placeholder="John"
             value={name}
             onChange={this.updateState}
+            onBlur={this.singleValidate}
             invalid={!!errors.name}
           />
           <FormFeedback>{errors.name}</FormFeedback>
@@ -131,6 +162,7 @@ class SignupForm extends Component {
             placeholder="john.doe@mail.com"
             value={email}
             onChange={this.updateState}
+            onBlur={this.singleValidate}
             invalid={!!errors.email}
           />
           <FormFeedback>{errors.email}</FormFeedback>
@@ -144,6 +176,7 @@ class SignupForm extends Component {
             type="password"
             value={password}
             onChange={this.updateState}
+            onBlur={this.singleValidate}
             invalid={!!errors.password}
           />
           <FormFeedback>{errors.password}</FormFeedback>
@@ -157,6 +190,7 @@ class SignupForm extends Component {
             type="password"
             value={repeatPassword}
             onChange={this.updateState}
+            onBlur={this.singleValidate}
             invalid={!!errors.repeatPassword}
           />
           <FormFeedback>{errors.repeatPassword}</FormFeedback>
