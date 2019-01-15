@@ -3,10 +3,11 @@ import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SigninForm from '../Components/SigninForm';
+import { signinWithEmailAndPassword } from '../Actions/auth';
 
-const Signin = ({ signin }) => {
+const Signin = ({ signin, signinWithEmailAndPassword }) => {
   const handleSubmit = ({ email, password }) => {
-    console.log(email, password);
+    signinWithEmailAndPassword({ email, password });
   }
 
   return (
@@ -25,6 +26,10 @@ const mapStateToProps = state => ({
   signin: state.auth.signin,
 });
 
+const mapDispatchToProps = dispatch => ({
+  signinWithEmailAndPassword: (payload) => signinWithEmailAndPassword(dispatch, payload),
+})
+
 Signin.propTypes = {
   signin: PropTypes.shape({
     isSigninError: PropTypes.bool.isRequired,
@@ -33,6 +38,7 @@ Signin.propTypes = {
     signinErrorMessage: PropTypes.string.isRequired,
     signinSuccessMessage: PropTypes.string.isRequired,
   }),
+  signinWithEmailAndPassword: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Signin);
+export default connect(mapStateToProps, mapDispatchToProps)(Signin);
