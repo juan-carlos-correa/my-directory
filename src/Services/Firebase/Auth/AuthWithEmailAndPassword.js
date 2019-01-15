@@ -16,11 +16,13 @@ export default class AuthWithEmailAndPassword extends FirebaseAuth {
     }
   }
 
-  observeAuth () {
-    return this.auth().onAuthStateChanged;
-  }
-
-  signOut () {
-    this.auth.signOut();
+  async sendEmailVerificationToCurrentUser () {
+    try {
+      return this.auth
+        .currentUser
+        .sendEmailVerification();
+    } catch (e) {
+      console.log('error sendEmailVerification', e)
+    }
   }
 };

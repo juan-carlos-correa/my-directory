@@ -7,4 +7,16 @@ export default class FirebaseAuth {
 
     this.auth = firebase.auth();
   }
+
+  getAuth () {
+    return this.auth;
+  }
+
+  observeAuth () {
+    return this.auth().onAuthStateChanged;
+  }
+
+  signOut () {
+    this.auth.signOut();
+  }
 };

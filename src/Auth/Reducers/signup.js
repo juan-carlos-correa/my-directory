@@ -4,6 +4,7 @@ import {
   SET_IS_SIGNUP_SUCCESS,
   SET_IS_SIGNUP_ERROR,
   SET_IS_LOADING,
+  RESET_SIGNUP_VALUES,
 } from '../Actions/types';
 
 const initialState = {
@@ -40,6 +41,14 @@ const signupReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: action.value,
+        };
+      case RESET_SIGNUP_VALUES:
+        return {
+          ...state,
+          isSignupError: false,
+          isSignupSuccess: false,
+          signupErrorMessage: '',
+          signupSuccessMessage: ''
         };
     default:
       return state;

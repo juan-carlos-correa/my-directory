@@ -4,19 +4,23 @@ import {
   SET_IS_SIGNUP_ERROR,
   SET_SIGNUP_SUCCESS_MESSAGE,
   SET_IS_LOADING,
+  RESET_SIGNUP_VALUES,
 } from '../Actions/types';
 import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmailAndPassword';
 
 export const signinWithEmailAndPassword = async (dispatch, { name, email, password }) => {
   try {
-    const authWithEmailAndPassword = new AuthWithEmailAndPassword();
     dispatch({ type: SET_IS_LOADING, value: true });
+
+    const authWithEmailAndPassword = new AuthWithEmailAndPassword();
+
     await authWithEmailAndPassword.signin({ email, password });
+    await authWithEmailAndPassword.sendEmailVerificationToCurrentUser();
 
     const msg = `Se ha enviado un correo de verificación a ${email}`;
+
     dispatch({ type: SET_IS_SIGNUP_SUCCESS, value: true });
     dispatch({ type: SET_SIGNUP_SUCCESS_MESSAGE, value: msg });
-    dispatch({ type: SET_IS_LOADING, value: false });
   } catch ({ code, message }) {
     let msg = 'Hubo un error al crear la cuenta';
 
@@ -38,7 +42,9 @@ export const signinWithEmailAndPassword = async (dispatch, { name, email, passwo
 
     dispatch({ type: SET_IS_SIGNUP_ERROR, value: true });
     dispatch({ type: SET_SIGNUP_ERROR_MESSAGE, value: msg });
+  } finally {
     dispatch({ type: SET_IS_LOADING, value: false });
+    setTimeout(() => dispatch({ type: RESET_SIGNUP_VALUES }), 6000);
   }
 };
 
