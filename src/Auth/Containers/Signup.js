@@ -6,7 +6,12 @@ import SignupForm from '../Components/SignupForm';
 import { signinWithEmailAndPassword } from '../Actions/auth';
 
 const Signup = ({ signinWithEmailAndPassword, signup }) => {
-  const { isSignupSuccess, signupErrorMessage, isSignupError } = signup;
+  const {
+    isSignupSuccess,
+    signupErrorMessage,
+    isSignupError,
+    signupSuccessMessage,
+  } = signup;
 
   const handleSubmit = ({ name, email, password }) => {
     signinWithEmailAndPassword({ name, email, password });
@@ -17,9 +22,11 @@ const Signup = ({ signinWithEmailAndPassword, signup }) => {
       <h1 className="text-center">Crear cuenta</h1>
       <Row className="justify-content-center">
         <Col sm="6">
-          <Alert color="danger" isOpen={isSignupError}>{signupErrorMessage}</Alert>
+          <Alert color="danger" isOpen={isSignupError}>
+            {signupErrorMessage}
+          </Alert>
           <Alert color="success" isOpen={isSignupSuccess}>
-            La cuenta ha sido creada con éxito
+            {signupSuccessMessage}
           </Alert>
           <SignupForm onSubmit={handleSubmit} isSignupSuccess={isSignupSuccess} />
         </Col>
@@ -42,6 +49,7 @@ Signup.propTypes = {
     isSignupSuccess: PropTypes.bool.isRequired,
     isSignupError: PropTypes.bool.isRequired,
     signupErrorMessage: PropTypes.string.isRequired,
+    signupSuccessMessage: PropTypes.string.isRequired,
   }).isRequired,
 };
 
