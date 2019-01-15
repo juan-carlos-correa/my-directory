@@ -3,9 +3,9 @@ import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SignupForm from '../Components/SignupForm';
-import { signinWithEmailAndPassword } from '../Actions/auth';
+import { signupWithEmailAndPassword } from '../Actions/auth';
 
-const Signup = ({ signinWithEmailAndPassword, signup }) => {
+const Signup = ({ signupWithEmailAndPassword, signup }) => {
   const {
     isSignupSuccess,
     signupErrorMessage,
@@ -15,7 +15,7 @@ const Signup = ({ signinWithEmailAndPassword, signup }) => {
   } = signup;
 
   const handleSubmit = ({ name, email, password }) => {
-    signinWithEmailAndPassword({ name, email, password });
+    signupWithEmailAndPassword({ name, email, password });
   }
 
   return (
@@ -45,11 +45,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  signinWithEmailAndPassword: payload => signinWithEmailAndPassword(dispatch, payload),
+  signupWithEmailAndPassword: payload => signupWithEmailAndPassword(dispatch, payload),
 });
 
 Signup.propTypes = {
-  signinWithEmailAndPassword: PropTypes.func.isRequired,
+  signupWithEmailAndPassword: PropTypes.func.isRequired,
   signup: PropTypes.shape({
     isSignupSuccess: PropTypes.bool.isRequired,
     isSignupError: PropTypes.bool.isRequired,

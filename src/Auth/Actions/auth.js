@@ -8,7 +8,7 @@ import {
 } from '../Actions/types';
 import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmailAndPassword';
 
-export const signinWithEmailAndPassword = async (dispatch, { name, email, password }) => {
+export const signupWithEmailAndPassword = async (dispatch, { name, email, password }) => {
   try {
     dispatch({ type: SET_IS_LOADING, value: true });
 
@@ -48,6 +48,15 @@ export const signinWithEmailAndPassword = async (dispatch, { name, email, passwo
   }
 };
 
+export const signinWithEmailAndPassword = async (dispatch, { email, password }) => {
+  try {
+
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default {
+  signupWithEmailAndPassword,
   signinWithEmailAndPassword,
 }

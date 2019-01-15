@@ -9,6 +9,7 @@ import {
   FormFeedback,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class SigninForm extends Component {
   constructor (props) {
@@ -28,6 +29,43 @@ class SigninForm extends Component {
     const { name, value } = target;
 
     this.setState({ [name]: value });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.resetErrors();
+
+    const { onSubmit } = this.props;
+    const { email, password } = this.state;
+
+    const validateForm = this.getFormValidations({ email, password });
+
+    if (!validateForm.isValid) {
+      const errors = validateForm.errors;
+      return this.setState({ errors });
+    }
+
+    onSubmit({ email, password });
+  }
+
+  getFormValidations = ({ email, password }) => {
+    const { errors } = this.state;
+    let isValid = true;
+    const emailValidator = this.emailValidation(email);
+    const passValidator = this.passwordValidation(password);
+
+    if (!emailValidator.isValid) {
+      errors.email = emailValidator.errors[0];
+      isValid = false
+    }
+
+    if (!passValidator.isValid) {
+      errors.password = passValidator.errors[0];
+      isValid = false
+    }
+
+    return { isValid, errors };
   }
 
   singleValidate = (e) => {
@@ -65,11 +103,20 @@ class SigninForm extends Component {
     return Validators(password).isMinLength(6).isMaxLength(60).getResult();
   }
 
+  resetErrors = () => {
+    this.setState({
+      errors: {
+        email: '',
+        password: '',
+      },
+    })
+  }
+
   render () {
     const { email, password, errors } = this.state;
 
     return (
-      <Form>
+      <Form onSubmit={this.handleSubmit}>
         <FormGroup>
           <Label for="email">Email</Label>
           <Input
@@ -111,6 +158,10 @@ class SigninForm extends Component {
       </Form>
     );
   }
+}
+
+SigninForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default SigninForm;
