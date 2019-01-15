@@ -11,6 +11,7 @@ const Signup = ({ signinWithEmailAndPassword, signup }) => {
     signupErrorMessage,
     isSignupError,
     signupSuccessMessage,
+    isLoading,
   } = signup;
 
   const handleSubmit = ({ name, email, password }) => {
@@ -28,7 +29,11 @@ const Signup = ({ signinWithEmailAndPassword, signup }) => {
           <Alert color="success" isOpen={isSignupSuccess}>
             {signupSuccessMessage}
           </Alert>
-          <SignupForm onSubmit={handleSubmit} isSignupSuccess={isSignupSuccess} />
+          <SignupForm
+            onSubmit={handleSubmit}
+            isSignupSuccess={isSignupSuccess}
+            isLoading={isLoading}
+          />
         </Col>
       </Row>
     </div>
@@ -48,6 +53,7 @@ Signup.propTypes = {
   signup: PropTypes.shape({
     isSignupSuccess: PropTypes.bool.isRequired,
     isSignupError: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     signupErrorMessage: PropTypes.string.isRequired,
     signupSuccessMessage: PropTypes.string.isRequired,
   }).isRequired,

@@ -175,6 +175,8 @@ class SignupForm extends Component {
       errors,
     } = this.state;
 
+    const { isLoading } = this.props;
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormGroup>
@@ -240,7 +242,7 @@ class SignupForm extends Component {
         </FormGroup>
 
         <FormGroup className="text-center">
-          <Button color="primary">REGISTRARME</Button>
+          <Button disabled={isLoading} color="primary">REGISTRARME</Button>
         </FormGroup>
 
         <FormGroup className="text-center">
@@ -254,6 +256,7 @@ class SignupForm extends Component {
 SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isSignupSuccess: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default  SignupForm;

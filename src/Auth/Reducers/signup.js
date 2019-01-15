@@ -2,7 +2,8 @@ import {
   SET_SIGNUP_ERROR_MESSAGE,
   SET_SIGNUP_SUCCESS_MESSAGE,
   SET_IS_SIGNUP_SUCCESS,
-  SET_IS_SIGNUP_ERROR
+  SET_IS_SIGNUP_ERROR,
+  SET_IS_LOADING,
 } from '../Actions/types';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   isSignupSuccess: false,
   signupErrorMessage: '',
   signupSuccessMessage: '',
+  isLoading: false,
 };
 
 const signupReducer = (state = initialState, action) => {
@@ -30,10 +32,15 @@ const signupReducer = (state = initialState, action) => {
         signupErrorMessage: action.value,
       };
       case SET_SIGNUP_SUCCESS_MESSAGE:
-      return {
-        ...state,
-        signupSuccessMessage: action.value,
-      };
+        return {
+          ...state,
+          signupSuccessMessage: action.value,
+        };
+      case SET_IS_LOADING:
+        return {
+          ...state,
+          isLoading: action.value,
+        };
     default:
       return state;
   }
