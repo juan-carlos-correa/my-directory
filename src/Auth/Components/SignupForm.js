@@ -72,7 +72,8 @@ class SignupForm extends Component {
   }
 
   getFormValidations = ({ name, email, password, repeatPassword }) => {
-    const errors = {};
+    const { errors } = this.state;
+    let isValid = true;
     const nameValidator = this.nameValidation(name);
     const emailValidator = this.emailValidation(email);
     const passValidator = this.passwordValidation(password);
@@ -80,24 +81,25 @@ class SignupForm extends Component {
 
     if (!nameValidator.isValid) {
       errors.name = nameValidator.errors[0];
+      isValid = false
     }
 
     if (!emailValidator.isValid) {
       errors.email = emailValidator.errors[0];
+      isValid = false
     }
 
     if (!passValidator.isValid) {
       errors.password = passValidator.errors[0];
+      isValid = false
     }
 
     if (!repeatPassValidator.isValid) {
       errors.repeatPassword = repeatPassValidator.errors[0];
+      isValid = false
     }
 
-    return {
-      isValid: Object.keys(errors).length === 0,
-      errors,
-    };
+    return { isValid, errors };
   }
 
   singleValidate = (e) => {
@@ -111,6 +113,20 @@ class SignupForm extends Component {
     errors[name] = result.isValid ? '' : result.errors[0];
 
     return this.setState({ errors });
+  }
+
+  removeError = (e) => {
+    const { name } = e.target;
+    const { errors } = this.state;
+
+    if (!!errors[name].length) {
+      this.setState({
+        errors: {
+          ...this.state.errors,
+          [name]: '',
+        }
+      })
+    }
   }
 
   nameValidation = (name) => {
@@ -171,6 +187,7 @@ class SignupForm extends Component {
             value={name}
             onChange={this.updateState}
             onBlur={this.singleValidate}
+            onFocus={this.removeError}
             invalid={!!errors.name}
           />
           <FormFeedback>{errors.name}</FormFeedback>
@@ -186,6 +203,7 @@ class SignupForm extends Component {
             value={email}
             onChange={this.updateState}
             onBlur={this.singleValidate}
+            onFocus={this.removeError}
             invalid={!!errors.email}
           />
           <FormFeedback>{errors.email}</FormFeedback>
@@ -200,6 +218,7 @@ class SignupForm extends Component {
             value={password}
             onChange={this.updateState}
             onBlur={this.singleValidate}
+            onFocus={this.removeError}
             invalid={!!errors.password}
           />
           <FormFeedback>{errors.password}</FormFeedback>
@@ -214,6 +233,7 @@ class SignupForm extends Component {
             value={repeatPassword}
             onChange={this.updateState}
             onBlur={this.singleValidate}
+            onFocus={this.removeError}
             invalid={!!errors.repeatPassword}
           />
           <FormFeedback>{errors.repeatPassword}</FormFeedback>
