@@ -9,6 +9,7 @@ import {
   Input,
   FormFeedback,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class SignupForm extends Component {
   constructor (props) {
@@ -246,7 +247,7 @@ class SignupForm extends Component {
         </FormGroup>
 
         <FormGroup className="text-center">
-          <Button color="link">Iniciar sesión</Button>
+          <Link to='/signin'>Iniciar sesión</Link>
         </FormGroup>
       </Form>
     )
