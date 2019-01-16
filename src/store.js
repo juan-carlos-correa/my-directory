@@ -7,6 +7,8 @@ const store = createStore(
   applyMiddleware(thunk),
 );
 
+console.log('initial state', store.getState());
+
 store.subscribe(() => console.log(store.getState()));
 
 export default store;

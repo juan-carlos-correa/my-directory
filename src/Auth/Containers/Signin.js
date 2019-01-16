@@ -33,10 +33,8 @@ const mapDispatchToProps = dispatch => ({
 Signin.propTypes = {
   signin: PropTypes.shape({
     isSigninError: PropTypes.bool.isRequired,
-    isSigninSuccess: PropTypes.bool.isRequired,
     isSigninLoading: PropTypes.bool.isRequired,
     signinErrorMessage: PropTypes.string.isRequired,
-    signinSuccessMessage: PropTypes.string.isRequired,
   }),
   signinWithEmailAndPassword: PropTypes.func.isRequired,
 };
