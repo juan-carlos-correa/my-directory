@@ -3,7 +3,7 @@ import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SignupForm from '../Components/SignupForm';
-import { signupWithEmailAndPassword } from '../Actions/auth';
+import { signupWithEmailAndPassword } from '../Actions/signup';
 
 const Signup = ({ signupWithEmailAndPassword, signup }) => {
   const {

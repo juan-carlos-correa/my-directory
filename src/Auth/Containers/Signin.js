@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SigninForm from '../Components/SigninForm';
-import { signinWithEmailAndPassword } from '../Actions/auth';
+import { signinWithEmailAndPassword } from '../Actions/signin';
 
 const Signin = ({ signin, signinWithEmailAndPassword }) => {
   const handleSubmit = ({ email, password }) => {
