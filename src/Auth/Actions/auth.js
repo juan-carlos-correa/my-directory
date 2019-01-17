@@ -11,14 +11,21 @@ import {
   RESET_SIGNIN_VALUES,
 } from '../Actions/types';
 import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmailAndPassword';
+import UserFirebase from '../../Services/Firebase/Models/UserFirebase';
 
 export const signupWithEmailAndPassword = async (dispatch, { name, email, password }) => {
   try {
     dispatch({ type: SET_IS_LOADING, value: true });
 
     const authWithEmailAndPassword = new AuthWithEmailAndPassword();
+    const userFirebase = new UserFirebase();
 
-    await authWithEmailAndPassword.signup({ email, password });
+    const dataStored = await authWithEmailAndPassword.signup({ email, password });
+
+    const { uid: userId } = dataStored.user;
+
+    await userFirebase.writeUserData({ userId, name });
+
     await authWithEmailAndPassword.sendEmailVerificationToCurrentUser();
 
     const msg = `Se ha enviado un correo de verificación a ${email}`;
@@ -63,6 +70,7 @@ export const signinWithEmailAndPassword = async (dispatch, { email, password }) 
     dispatch({ type: SET_SIGNIN_ERROR_MESSAGE, value: message });
   } finally {
     dispatch({ type: SET_IS_SIGNIN_LOADING, value: false });
+    dispatch({ type: RESET_SIGNIN_VALUES, value: false });
   }
 }
 
