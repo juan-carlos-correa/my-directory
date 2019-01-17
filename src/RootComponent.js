@@ -5,16 +5,19 @@ import { Container } from 'reactstrap';
 import store from './store';
 import routes from './mainRoutes';
 import RouteWithSubRoutes from './Utils/Components/RouteWithSubRoutes';
+import AuthGuard from './Auth/Containers/AuthGuard';
 
 const RootComponent = () => (
   <Provider store={store}>
     <Router>
       <Container>
-        {
-          routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route} />
-          ))
-        }
+        <AuthGuard>
+          {
+            routes.map((route, i) => (
+              <RouteWithSubRoutes key={i} {...route} />
+            ))
+          }
+        </AuthGuard>
       </Container>
     </Router>
   </Provider>

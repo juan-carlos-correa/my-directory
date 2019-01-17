@@ -12,10 +12,6 @@ export default class FirebaseAuth {
     return this.auth;
   }
 
-  observeAuth () {
-    return this.auth().onAuthStateChanged;
-  }
-
   signOut () {
     this.auth.signOut();
   }
