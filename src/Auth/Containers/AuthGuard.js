@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import FirebaseAuth from '../../Services/Firebase/Auth/FirebaseAuth';
+import { setUserData } from '../Actions/auth';
 
 class AuthGuard extends Component {
   constructor (props) {
@@ -11,9 +13,14 @@ class AuthGuard extends Component {
   }
 
   componentDidMount () {
+    const { setUserData } = this.props;
     const firebaseAuth = new FirebaseAuth();
     firebaseAuth.getAuth().onAuthStateChanged((user) => {
-      console.log('current user', user);
+      if (user) {
+        const { uid } = user;
+        setUserData(uid);
+      }
+
       this.setState({ isLoading: false });
     });
   }
@@ -35,7 +42,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  setUserData: userUid => setUserData(dispatch, userUid),
 });
+
+AuthGuard.propTypes = {
+  children: PropTypes.node.isRequired,
+  setUserData: PropTypes.func.isRequired,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthGuard));
