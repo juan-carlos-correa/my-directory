@@ -10,17 +10,16 @@ import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmail
 import UserFirebase from '../../Services/Firebase/Models/UserFirebase';
 
 export const signupWithEmailAndPassword = async (dispatch, { name, email, password }) => {
+  const authWithEmailAndPassword = new AuthWithEmailAndPassword();
+  const userFirebase = new UserFirebase();
+  dispatch({ type: SET_IS_LOADING, value: true });
+
   try {
-    dispatch({ type: SET_IS_LOADING, value: true });
-
-    const authWithEmailAndPassword = new AuthWithEmailAndPassword();
-    const userFirebase = new UserFirebase();
-
     const dataStored = await authWithEmailAndPassword.signup({ email, password });
 
     const { uid: userId } = dataStored.user;
 
-    await userFirebase.writeUserData({ userId, name });
+    await userFirebase.writeUserData({ userId, name, email });
 
     await authWithEmailAndPassword.sendEmailVerificationToCurrentUser();
 
@@ -29,24 +28,7 @@ export const signupWithEmailAndPassword = async (dispatch, { name, email, passwo
     dispatch({ type: SET_IS_SIGNUP_SUCCESS, value: true });
     dispatch({ type: SET_SIGNUP_SUCCESS_MESSAGE, value: msg });
   } catch ({ code, message }) {
-    let msg = 'Hubo un error al crear la cuenta';
-
-    if (code === 'auth/invalid-email') {
-      msg = 'El email proporcionado es inválido';
-    }
-
-    if (code === 'auth/email-already-in-use') {
-      msg = 'El email ya se encuentra registrado por otra cuenta';
-    }
-
-    if (code === 'auth/operation-not-allowed') {
-      msg = 'Esta operación no está permitida';
-    }
-
-    if (code === 'auth/weak-password') {
-      msg = 'La contraseña proporcionada no es suficientemente fuerte';
-    }
-
+    const msg = authWithEmailAndPassword.getErrorMessageSignup(code);
     dispatch({ type: SET_IS_SIGNUP_ERROR, value: true });
     dispatch({ type: SET_SIGNUP_ERROR_MESSAGE, value: msg });
   } finally {

@@ -1,13 +1,20 @@
 import FirebaseDatabase from './FirebaseDatabase';
 
 export default class UserFirebase extends FirebaseDatabase {
-  async writeUserData ({ userId, name = '', phone = '', job = '', subsidiary = '' }) {
+  async writeUserData ({
+    userId,
+    name = '',
+    phone = '',
+    job = '',
+    subsidiary = '',
+    email = '',
+  }) {
     try {
       const userStored = await this.db
       .collection('users')
       .doc(userId)
       .set(
-        { name, phone, job, subsidiary },
+        { name, phone, job, subsidiary, email },
         { merge: true }
       );
 
