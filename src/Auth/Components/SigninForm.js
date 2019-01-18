@@ -114,6 +114,7 @@ class SigninForm extends Component {
 
   render () {
     const { email, password, errors } = this.state;
+    const { isSigninLoading } = this.props;
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -149,7 +150,7 @@ class SigninForm extends Component {
         </FormGroup>
 
         <FormGroup className="text-center">
-          <Button color="primary">ENVIAR</Button>
+          <Button disabled={isSigninLoading} color="primary">ENVIAR</Button>
         </FormGroup>
 
         <FormGroup className="text-center">
@@ -162,6 +163,7 @@ class SigninForm extends Component {
 
 SigninForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isSigninLoading: PropTypes.bool.isRequired,
 }
 
 export default SigninForm;

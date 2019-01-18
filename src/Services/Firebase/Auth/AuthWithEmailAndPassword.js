@@ -31,4 +31,26 @@ export default class AuthWithEmailAndPassword extends FirebaseAuth {
 
     return msg;
   }
+
+  getErrorMessageSignin (code) {
+    let msg = 'Hubo un error al iniciar sesión';
+
+    if (code === 'auth/invalid-email') {
+      msg = 'El email proporcionado es inválido';
+    }
+
+    if (code === 'auth/user-disabled') {
+      msg = 'El email proporcionado ha sido deshabilitado';
+    }
+
+    if (code === 'auth/user-not-found') {
+      msg = 'El email proporcionado no fue encontrado';
+    }
+
+    if (code === 'auth/wrong-password') {
+      msg = 'La contraseña proporcionada es incorrecta';
+    }
+
+    return msg;
+  }
 };

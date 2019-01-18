@@ -8,13 +8,6 @@ export const setUserData = async (dispatch, userUid) => {
 
     if (user.exists) {
       dispatch({ type: SET_USER_DATA, payload: user.data() });
-
-      if (user.emailVerified) {
-        dispatch({ type: SET_USER_DATA, payload: user.data() });
-      } else {
-        dispatch({ type: SET_IS_SIGNIN_ERROR, value: true });
-        dispatch({ type: SET_SIGNIN_ERROR_MESSAGE, value: 'Necesitas verificar tu correo' });
-      }
     }
   } catch (e) {
     console.log('setUserData error', e);
