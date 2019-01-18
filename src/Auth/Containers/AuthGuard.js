@@ -17,8 +17,12 @@ class AuthGuard extends Component {
     const firebaseAuth = new FirebaseAuth();
     firebaseAuth.getAuth().onAuthStateChanged((user) => {
       if (user) {
-        const { uid } = user;
-        setUserData(uid);
+        if (user.emailVerified) {
+          const { uid } = user;
+          setUserData(uid);
+        } else {
+          firebaseAuth.sendEmailVerificationToCurrentUser();
+        }
       }
 
       this.setState({ isLoading: false });

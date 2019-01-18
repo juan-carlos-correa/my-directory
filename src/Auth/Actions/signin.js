@@ -17,7 +17,7 @@ export const signinWithEmailAndPassword = async (dispatch, { email, password }) 
     dispatch({ type: SET_SIGNIN_ERROR_MESSAGE, value: message });
   } finally {
     dispatch({ type: SET_IS_SIGNIN_LOADING, value: false });
-    dispatch({ type: RESET_SIGNIN_VALUES, value: false });
+    dispatch({ type: RESET_SIGNIN_VALUES });
   }
 }
 

@@ -12,6 +12,16 @@ export default class FirebaseAuth {
     return this.auth;
   }
 
+  async sendEmailVerificationToCurrentUser () {
+    try {
+      return this.auth
+        .currentUser
+        .sendEmailVerification();
+    } catch (e) {
+      console.log('error sendEmailVerification', e);
+    }
+  }
+
   signOut () {
     this.auth.signOut();
   }

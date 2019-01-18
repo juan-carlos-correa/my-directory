@@ -10,16 +10,6 @@ export default class AuthWithEmailAndPassword extends FirebaseAuth {
     await this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  async sendEmailVerificationToCurrentUser () {
-    try {
-      return this.auth
-        .currentUser
-        .sendEmailVerification();
-    } catch (e) {
-      console.log('error sendEmailVerification', e)
-    }
-  }
-
   getErrorMessageSignup (code) {
     let msg = 'Hubo un error al crear la cuenta';
 
