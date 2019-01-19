@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Nabvar from '../Components/Navbar';
+import Navbar from '../Components/Navbar';
+import { removeUserDataAction } from '../../Auth/Actions/auth';
 
 class NavbarContainer extends Component {
   gotoProfile = () => {
@@ -14,12 +16,13 @@ class NavbarContainer extends Component {
   }
 
   closeSession = () => {
-    console.log('closeSession');
+    const { removeUserData } = this.props;
+    removeUserData();
   }
 
   render () {
     return (
-      <Nabvar
+      <Navbar
         gotoProfile={this.gotoProfile}
         gotoUpdatePassword={this.gotoUpdatePassword}
         closeSession={this.closeSession}
@@ -28,10 +31,15 @@ class NavbarContainer extends Component {
   }
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  removeUserData: () => removeUserDataAction(dispatch),
+});
+
 NavbarContainer.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  removeUserData: PropTypes.func.isRequired,
 };
 
-export default NavbarContainer;
+export default connect(null, mapDispatchToProps)(NavbarContainer);

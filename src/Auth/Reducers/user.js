@@ -1,4 +1,4 @@
-import { SET_USER_DATA } from '../Actions/types';
+import { SET_USER_DATA, REMOVE_USER_DATA } from '../Actions/types';
 
 const initialState = {};
 
@@ -9,6 +9,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+
+    case REMOVE_USER_DATA: {
+      return initialState;
+    }
     default:
       return state;
   }

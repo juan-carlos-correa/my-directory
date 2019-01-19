@@ -1,5 +1,6 @@
-import { SET_USER_DATA } from './types';
+import { SET_USER_DATA, REMOVE_USER_DATA } from './types';
 import UserFirebase from '../../Services/Firebase/Models/UserFirebase';
+import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmailAndPassword';
 
 export const setUserData = async (dispatch, userUid) => {
   try {
@@ -15,6 +16,17 @@ export const setUserData = async (dispatch, userUid) => {
   }
 };
 
+export const removeUserDataAction = (dispatch) => {
+  try {
+    const authWithEmailAndPassword = new AuthWithEmailAndPassword();
+    authWithEmailAndPassword.signOut();
+    dispatch({ type: REMOVE_USER_DATA });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default {
   setUserData,
+  removeUserDataAction,
 };
