@@ -7,7 +7,7 @@ import { removeUserDataAction } from '../../Auth/Actions/auth';
 class NavbarContainer extends Component {
   gotoProfile = () => {
     const { history } = this.props;
-    history.push('/profile');
+    history.push('/main/profile');
   }
 
   gotoUpdatePassword = () => {
