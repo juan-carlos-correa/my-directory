@@ -19,7 +19,7 @@ export const signupWithEmailAndPassword = async (dispatch, { name, email, passwo
 
     const { uid: userId } = dataStored.user;
 
-    await userFirebase.writeUserData({ userId, name, email });
+    await userFirebase.writeUserData({ userId, name, email, isAdmin: true });
 
     await authWithEmailAndPassword.sendEmailVerificationToCurrentUser();
 

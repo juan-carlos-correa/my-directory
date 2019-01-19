@@ -8,13 +8,14 @@ export default class UserFirebase extends FirebaseDatabase {
     job = '',
     subsidiary = '',
     email = '',
+    isAdmin = false,
   }) {
     try {
       const userStored = await this.db
       .collection('users')
       .doc(userId)
       .set(
-        { name, phone, job, subsidiary, email },
+        { name, phone, job, subsidiary, email, isAdmin },
         { merge: true }
       );
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FirebaseAuth from '../../Services/Firebase/Auth/FirebaseAuth';
 import { setUserData } from '../Actions/auth';
@@ -72,7 +72,14 @@ AuthGuard.propTypes = {
   setUserData: PropTypes.func.isRequired,
   setSigninErrorMsg: PropTypes.func.isRequired,
   setIsSigninError: PropTypes.func.isRequired,
-  user: PropTypes.objectOf(PropTypes.string).isRequired,
+  user: PropTypes.shape({
+    isAdmin: PropTypes.bool,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    job: PropTypes.string,
+    subsidiary: PropTypes.string,
+  }).isRequired,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthGuard));

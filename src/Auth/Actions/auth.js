@@ -1,4 +1,4 @@
-import { SET_USER_DATA, SET_IS_SIGNIN_ERROR, SET_SIGNIN_ERROR_MESSAGE } from './types';
+import { SET_USER_DATA } from './types';
 import UserFirebase from '../../Services/Firebase/Models/UserFirebase';
 
 export const setUserData = async (dispatch, userUid) => {

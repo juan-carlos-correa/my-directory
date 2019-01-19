@@ -24,4 +24,3 @@ const RootComponent = () => (
 );
 
 export default RootComponent;
-
