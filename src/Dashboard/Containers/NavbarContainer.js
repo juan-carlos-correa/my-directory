@@ -21,8 +21,11 @@ class NavbarContainer extends Component {
   }
 
   render () {
+    const { user } = this.props;
+
     return (
       <Navbar
+        displayName={user.name}
         gotoProfile={this.gotoProfile}
         gotoUpdatePassword={this.gotoUpdatePassword}
         closeSession={this.closeSession}
@@ -39,6 +42,9 @@ NavbarContainer.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
   removeUserData: PropTypes.func.isRequired,
 };
 

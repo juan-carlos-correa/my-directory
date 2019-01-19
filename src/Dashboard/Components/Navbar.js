@@ -28,7 +28,7 @@ class NavbarComponent extends Component {
   }
 
   render() {
-    const { gotoProfile, gotoUpdatePassword, closeSession } = this.props;
+    const { gotoProfile, gotoUpdatePassword, closeSession, displayName } = this.props;
 
     return (
       <div>
@@ -39,7 +39,7 @@ class NavbarComponent extends Component {
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Opciones
+                  { displayName }
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem onClick={gotoProfile}>
@@ -66,6 +66,7 @@ NavbarComponent.propTypes = {
   gotoProfile: PropTypes.func.isRequired,
   gotoUpdatePassword: PropTypes.func.isRequired,
   closeSession: PropTypes.func.isRequired,
+  displayName: PropTypes.string.isRequired,
 };
 
 export default NavbarComponent
