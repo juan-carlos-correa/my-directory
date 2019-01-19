@@ -1,5 +1,6 @@
-import Signup from './Auth/Containers/Signup'
-import Signin from './Auth/Containers/Signin'
+import Signup from './Auth/Containers/Signup';
+import Signin from './Auth/Containers/Signin';
+import MainPanel from './Dashboard/Containers/MainPanel';
 
 const routes = [
   {
@@ -10,6 +11,11 @@ const routes = [
     path: '/signin',
     component: Signin,
   },
+  {
+    path: '/main',
+    component: MainPanel,
+    isPrivate: true,
+  }
 ];
 
 export default routes;

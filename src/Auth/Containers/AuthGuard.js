@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FirebaseAuth from '../../Services/Firebase/Auth/FirebaseAuth';
 import { setUserData } from '../Actions/auth';
@@ -14,13 +14,15 @@ class AuthGuard extends Component {
   }
 
   componentDidMount () {
-    const { setUserData, setSigninErrorMsg, setIsSigninError } = this.props;
+    const { setUserData, setSigninErrorMsg, setIsSigninError, history } = this.props;
     const firebaseAuth = new FirebaseAuth();
-    firebaseAuth.getAuth().onAuthStateChanged((user) => {
+
+    firebaseAuth.getAuth().onAuthStateChanged(async (user) => {
       if (user) {
         if (user.emailVerified) {
           const { uid } = user;
-          setUserData(uid);
+          await setUserData(uid);
+          history.push('/main');
         } else {
           const msg = 'Necesitas validar tu correo. Ha sido enviado un nuevo email de verificación';
           setSigninErrorMsg(msg);
@@ -33,15 +35,25 @@ class AuthGuard extends Component {
     });
   }
 
+  renderChildrenWithProps = (children, user) => (
+    React.Children.map(children, child =>
+      React.cloneElement(child, { user })
+    )
+  )
+
   render () {
     const { isLoading } = this.state;
-    const { children } = this.props;
+    const { children, user } = this.props;
 
     if (isLoading) {
-      return <div>Loading...</div>
+      return (<div>Loading...</div>);
     }
 
-    return <div>{ children }</div>;
+    return (
+      <div>
+        { this.renderChildrenWithProps(children, user) }
+      </div>
+    );
   }
 }
 
@@ -60,6 +72,7 @@ AuthGuard.propTypes = {
   setUserData: PropTypes.func.isRequired,
   setSigninErrorMsg: PropTypes.func.isRequired,
   setIsSigninError: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthGuard));

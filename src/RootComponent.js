@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Container } from 'reactstrap';
 import store from './store';
 import routes from './mainRoutes';
-import RouteWithSubRoutes from './Utils/Components/RouteWithSubRoutes';
+import Routes from './Utils/Components/Routes';
 import AuthGuard from './Auth/Containers/AuthGuard';
 
 const RootComponent = () => (
@@ -14,7 +14,7 @@ const RootComponent = () => (
         <AuthGuard>
           {
             routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
+              <Routes key={i} {...route} />
             ))
           }
         </AuthGuard>
