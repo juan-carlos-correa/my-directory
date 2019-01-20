@@ -49,19 +49,46 @@ class ProfileForm extends Component {
     const { name, value } = e.target;
     let result;
 
-    if (name === 'name') {
+    if (name === 'name' || name === 'job' || name === 'subsidiary') {
       result = Validators(value).isMinLength(3).isMaxLength(30).getResult();
     } else if (name === 'phone') {
       result = Validators(value).isMinLength(7).isMaxLength(15).getResult();
-    } else if (name === 'job') {
-      result = Validators(value).isMinLength(3).isMaxLength(30).getResult();
-    } else if (name === 'subsidiary') {
-      result = Validators(value).isMinLength(3).isMaxLength(30).getResult();
     }
 
     errors[name] = result.isValid ? '' : result.errors[0];
 
     this.setState({ errors });
+  }
+
+  getFormValidations = ({ name, job, subsidiary, phone }) => {
+    const { errors } = this.state;
+    let isValid = true;
+    const nameVal = Validators(name).isMinLength(3).isMaxLength(30).getResult();
+    const jobVal = Validators(job).isMinLength(3).isMaxLength(30).getResult();
+    const subsidiaryVal = Validators(subsidiary).isMinLength(3).isMaxLength(30).getResult();
+    const phoneVal = Validators(phone).isMinLength(7).isMaxLength(15).getResult();
+
+    if (!nameVal.isValid) {
+      isValid = false;
+      errors.name = nameVal.errors[0];
+    }
+
+    if (!jobVal.isValid) {
+      isValid = false;
+      errors.job = jobVal.errors[0];
+    }
+
+    if (!subsidiaryVal.isValid) {
+      isValid = false;
+      errors.subsidiary = subsidiaryVal.errors[0];
+    }
+
+    if (!phoneVal.isValid) {
+      isValid = false;
+      errors.phone = phoneVal.errors[0];
+    }
+
+    return { errors, isValid };
   }
 
   removeError = (e) => {
@@ -78,9 +105,18 @@ class ProfileForm extends Component {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     const { handleSubmit } = this.props;
     const { name, phone, job, subsidiary } = this.state;
+
+    const validateForm = this.getFormValidations({ name, phone, job, subsidiary });
+
+    if (!validateForm.isValid) {
+      const errors = validateForm.errors;
+      return this.setState({ errors });
+    }
+
     handleSubmit({ name, phone, job, subsidiary });
   }
 
@@ -118,7 +154,7 @@ class ProfileForm extends Component {
             onFocus={this.removeError}
             invalid={!!errors.job}
           />
-          <FormFeedback>{errors.phone}</FormFeedback>
+          <FormFeedback>{errors.job}</FormFeedback>
         </FormGroup>
 
         <FormGroup>

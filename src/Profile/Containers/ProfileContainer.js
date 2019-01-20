@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ProfileForm from '../Components/ProfileForm';
 
 const ProfileContainer = ({ user }) => {
-  const handleSubmit = () => console.log('handleSubmit');
+  const handleSubmit = ({ name, phone, job, subsidiary }) => console.log('handleSubmit', { name, phone, job, subsidiary });
 
   return (
     <section>
