@@ -7,7 +7,7 @@ const ProfileContainer = ({ user }) => {
   const handleSubmit = ({ name, phone, job, subsidiary }) => console.log('handleSubmit', { name, phone, job, subsidiary });
 
   return (
-    <section>
+    <section className="mt-2">
       <Breadcrumb>
         <BreadcrumbItem>
           <Link to="/main">Dashboard</Link>
