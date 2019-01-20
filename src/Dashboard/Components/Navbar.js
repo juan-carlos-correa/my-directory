@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink as RRNavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -11,8 +10,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavItem,
-  NavLink,
 } from 'reactstrap';
 
 class NavbarComponent extends Component {
@@ -32,7 +29,7 @@ class NavbarComponent extends Component {
 
   render() {
     const { gotoProfile, gotoUpdatePassword, closeSession, user } = this.props;
-    const { name, isAdmin } = user;
+    const { name } = user;
 
     return (
       <div>
@@ -72,7 +69,6 @@ NavbarComponent.propTypes = {
   closeSession: PropTypes.func.isRequired,
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    isAdmin: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
