@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -9,7 +10,9 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  NavItem,
+  NavLink,
 } from 'reactstrap';
 
 class NavbarComponent extends Component {
@@ -28,7 +31,8 @@ class NavbarComponent extends Component {
   }
 
   render() {
-    const { gotoProfile, gotoUpdatePassword, closeSession, displayName } = this.props;
+    const { gotoProfile, gotoUpdatePassword, closeSession, user } = this.props;
+    const { name, isAdmin } = user;
 
     return (
       <div>
@@ -37,9 +41,23 @@ class NavbarComponent extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+              {
+                isAdmin && (
+                  <NavItem>
+                    <NavLink tag={RRNavLink} exact to="/main/jobs" activeClassName="active">Puestos de trabajo</NavLink>
+                  </NavItem>
+                )
+              }
+              {
+                isAdmin && (
+                  <NavItem>
+                    <NavLink tag={RRNavLink} exact to="/main/subsidiaries" activeClassName="active">Sucursales</NavLink>
+                  </NavItem>
+                )
+              }
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  { displayName }
+                  { name }
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem onClick={gotoProfile}>
@@ -66,7 +84,10 @@ NavbarComponent.propTypes = {
   gotoProfile: PropTypes.func.isRequired,
   gotoUpdatePassword: PropTypes.func.isRequired,
   closeSession: PropTypes.func.isRequired,
-  displayName: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    isAdmin: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default NavbarComponent

@@ -25,7 +25,7 @@ class NavbarContainer extends Component {
 
     return (
       <Navbar
-        displayName={user.name}
+        user={user}
         gotoProfile={this.gotoProfile}
         gotoUpdatePassword={this.gotoUpdatePassword}
         closeSession={this.closeSession}
