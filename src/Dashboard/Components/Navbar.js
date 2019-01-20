@@ -41,20 +41,6 @@ class NavbarComponent extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {
-                isAdmin && (
-                  <NavItem>
-                    <NavLink tag={RRNavLink} exact to="/main/jobs" activeClassName="active">Puestos de trabajo</NavLink>
-                  </NavItem>
-                )
-              }
-              {
-                isAdmin && (
-                  <NavItem>
-                    <NavLink tag={RRNavLink} exact to="/main/subsidiaries" activeClassName="active">Sucursales</NavLink>
-                  </NavItem>
-                )
-              }
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   { name }
