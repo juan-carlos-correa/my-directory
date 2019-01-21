@@ -13,6 +13,4 @@ const store = createStore(
 
 console.log('initial state', store.getState());
 
-store.subscribe(() => console.log(store.getState()));
-
 export default store;

@@ -1,10 +1,17 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { updateUser } from '../Actions/user';
 import ProfileForm from '../Components/ProfileForm';
 
-const ProfileContainer = ({ user }) => {
-  const handleSubmit = ({ name, phone, job, subsidiary }) => console.log('handleSubmit', { name, phone, job, subsidiary });
+const ProfileContainer = ({ user, updateUser }) => {
+  const { uid } = user;
+
+  const handleSubmit = ({ name, phone, job, subsidiary }) => {
+    updateUser(uid, { name, phone, job, subsidiary });
+  }
 
   return (
     <section className="mt-2">
@@ -24,4 +31,15 @@ const ProfileContainer = ({ user }) => {
   );
 }
 
-export default ProfileContainer;
+const mapDispatchToProps = (dispatch) => ({
+  updateUser: (uid, payload) => updateUser(dispatch, uid, payload),
+});
+
+ProfileContainer.propTypes = {
+  user: PropTypes.shape({
+    uid: PropTypes.string.isRequired,
+  }).isRequired,
+  updateUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(ProfileContainer);

@@ -28,4 +28,8 @@ export default class UserFirebase extends FirebaseDatabase {
   async getUserData (userUid) {
     return this.db.collection('users').doc(userUid).get();
   }
+
+  updateUserData (userUid, userData) {
+    return this.db.collection('users').doc(userUid).update(userData);
+  }
 }

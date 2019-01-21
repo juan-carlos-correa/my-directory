@@ -9,7 +9,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
-
     case REMOVE_USER_DATA: {
       return initialState;
     }
