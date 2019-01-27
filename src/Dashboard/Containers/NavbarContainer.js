@@ -12,7 +12,7 @@ class NavbarContainer extends Component {
 
   gotoUpdatePassword = () => {
     const { history } = this.props;
-    history.push('/updatePassword');
+    history.push('/main/updatePassword');
   }
 
   closeSession = () => {

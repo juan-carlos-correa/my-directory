@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateUser } from '../Actions/user';
-import ProfileForm from '../Components/ProfileForm';
+import UpdatePasswordForm from '../Components/UpdatePasswordForm';
 import ProfileBreadCrumbs from '../Components/ProfileBreadCrumbs';
 
 const ProfileContainer = ({ user, updateUser, fetch }) => {
@@ -21,7 +21,7 @@ const ProfileContainer = ({ user, updateUser, fetch }) => {
 
   return (
     <section className="mt-2">
-      <ProfileBreadCrumbs current="Mi perfil" />
+      <ProfileBreadCrumbs current="Cambiar contraseña" />
 
       <Row className="justify-content-center">
         <Col sm="6">
@@ -46,7 +46,7 @@ const ProfileContainer = ({ user, updateUser, fetch }) => {
             )
           }
 
-          <ProfileForm user={user} handleSubmit={handleSubmit} />
+          <UpdatePasswordForm handleSubmit={handleSubmit} />
         </Col>
       </Row>
     </section>
