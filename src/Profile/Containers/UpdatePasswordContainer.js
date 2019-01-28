@@ -7,16 +7,16 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateUser } from '../Actions/user';
+import { updatePassword } from '../Actions/user';
 import UpdatePasswordForm from '../Components/UpdatePasswordForm';
 import ProfileBreadCrumbs from '../Components/ProfileBreadCrumbs';
 
-const ProfileContainer = ({ user, updateUser, fetch }) => {
-  const { uid } = user;
+const ProfileContainer = ({ user, updatePassword, fetch }) => {
+  const { email } = user;
   const { isLoading, successMsg, errorMsg } = fetch;
 
-  const handleSubmit = ({ name, phone, job, subsidiary }) => {
-    updateUser(uid, { name, phone, job, subsidiary });
+  const handleSubmit = (oldPassword, newPassword) => {
+    updatePassword({ email, password: oldPassword }, newPassword);
   }
 
   return (
@@ -58,14 +58,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateUser: (uid, payload) => updateUser(dispatch, uid, payload),
+  updatePassword: (credentials, newPassword) => updatePassword(dispatch, credentials, newPassword),
 });
 
 ProfileContainer.propTypes = {
   user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
   }).isRequired,
-  updateUser: PropTypes.func.isRequired,
+  updatePassword: PropTypes.func.isRequired,
   fetch: PropTypes.shape({
     isLoading: PropTypes.bool.isRequired,
     successMsg: PropTypes.string.isRequired,

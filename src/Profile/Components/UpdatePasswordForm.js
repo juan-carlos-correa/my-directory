@@ -10,20 +10,22 @@ import {
   FormFeedback,
 } from 'reactstrap';
 
+const initialState = {
+  password: '',
+  newPassword: '',
+  repeatPassword: '',
+  errors: {
+    password: '',
+    newPassword: '',
+    repeatPassword: '',
+  },
+};
+
 class ProfileForm extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {
-      password: '',
-      newPassword: '',
-      repeatPassword: '',
-      errors: {
-        password: '',
-        newPassword: '',
-        repeatPassword: '',
-      },
-    };
+    this.state = initialState;
   }
 
   updateState = ({ target }) => {
@@ -96,7 +98,8 @@ class ProfileForm extends Component {
       return this.setState({ errors });
     }
 
-    handleSubmit({ password, newPassword, repeatPassword });
+    handleSubmit(password, newPassword);
+    this.cleanForm();
   }
 
   removeError = (e) => {
@@ -111,6 +114,10 @@ class ProfileForm extends Component {
         }
       })
     }
+  }
+
+  cleanForm = () => {
+    this.setState(initialState);
   }
 
   render () {
