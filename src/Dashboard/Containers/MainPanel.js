@@ -2,6 +2,7 @@ import React from 'react';
 import dashboardRoutes from '../dashboardRoutes';
 import Routes from '../../Utils/Components/Routes';
 import NavbarContainer from './NavbarContainer';
+import DashboardContainer from './DashboardContainer';
 
 const MainPanel = ({ ...rest }) => (
   <div>
@@ -11,6 +12,7 @@ const MainPanel = ({ ...rest }) => (
         <Routes key={i} {...route} {...rest} />
       ))
     }
+    <DashboardContainer />
   </div>
 );
 
