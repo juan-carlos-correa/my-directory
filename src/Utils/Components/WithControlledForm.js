@@ -7,7 +7,7 @@ const WithControlledForm = (FormComponent, state = {}, formValidations = {}) => 
       super(props);
 
       this.state = {
-        values: state,
+        values: { ...state },
         errors: this._stateToErrors(state),
       };
     }
@@ -44,6 +44,26 @@ const WithControlledForm = (FormComponent, state = {}, formValidations = {}) => 
       return isFormValid;
     }
 
+    isFormClean = () => {
+      const { values } = this.state;
+      const isValue = Object.values(values).filter(val => val.length > 0);
+      return isValue.length === 0;
+    }
+
+    cleanForm = () => {
+      const newValues = {};
+      const { values } = this.state;
+
+      for (let val in values) {
+        newValues[val] = '';
+      }
+
+      this.setState({
+        values: newValues,
+        errors: this._stateToErrors(newValues),
+      });
+    }
+
     handleChange = ({ target }) => {
       const { name, value } = target;
       const { values } = this.state;
@@ -54,10 +74,10 @@ const WithControlledForm = (FormComponent, state = {}, formValidations = {}) => 
     handleBlur = (e) => {
       e.preventDefault();
 
-      const { errors } = this.state;
+      const { errors, values } = this.state;
       const { name, value } = e.target;
       const validations = formValidations[name];
-      const result = Validators().validate(value, validations);
+      const result = Validators().validate(values, value, validations);
       errors[name] = !result.isValid ? result.errors[0] : '';
       this.setState({ errors });
     }
@@ -91,6 +111,8 @@ const WithControlledForm = (FormComponent, state = {}, formValidations = {}) => 
         <FormComponent
           {...this.props}
           {...this.state}
+          cleanForm={this.cleanForm}
+          isFormClean={this.isFormClean}
           handleChange={this.handleChange}
           handleBlur={this.handleBlur}
           handleFocus={this.handleFocus}

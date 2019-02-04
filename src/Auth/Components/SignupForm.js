@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Validators from '../../Utils/Lib/Validators';
 import {
   Button,
   Form,
@@ -12,174 +11,34 @@ import {
 import { Link } from 'react-router-dom';
 
 class SignupForm extends Component {
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
-      errors: {
-        name: '',
-        email: '',
-        password: '',
-        repeatPassword: '',
-      },
-    };
-  }
-
   componentDidUpdate () {
-    const { isSignupSuccess } = this.props;
-
-    if (isSignupSuccess && !this.isFormClean()) {
-      this.cleanForm();
-    }
-  }
-
-  isFormClean = () => {
-    const { name, email, password, repeatPassword } = this.state;
-
-    return !name.length && !email.length && !password.length && !repeatPassword.length;
-  }
-
-  updateState = ({ target }) => {
-    const { name, value } = target;
-
-    this.setState({ [name]: value });
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const { onSubmit } = this.props;
-    this.resetErrors();
-
     const {
-      name,
-      email,
-      password,
-      repeatPassword,
-    } = this.state;
+      isSignupSuccess,
+      cleanForm,
+      isFormClean,
+    } = this.props;
 
-    const validateForm = this.getFormValidations({ name, email, password, repeatPassword });
-
-    if (!validateForm.isValid) {
-      const errors = validateForm.errors;
-      return this.setState({ errors });
+    if (isSignupSuccess && !isFormClean()) {
+      cleanForm();
     }
-
-    onSubmit({ name, email, password });
-  }
-
-  getFormValidations = ({ name, email, password, repeatPassword }) => {
-    const { errors } = this.state;
-    let isValid = true;
-    const nameValidator = this.nameValidation(name);
-    const emailValidator = this.emailValidation(email);
-    const passValidator = this.passwordValidation(password);
-    const repeatPassValidator = this.repeatPasswordValidation(repeatPassword);
-
-    if (!nameValidator.isValid) {
-      errors.name = nameValidator.errors[0];
-      isValid = false
-    }
-
-    if (!emailValidator.isValid) {
-      errors.email = emailValidator.errors[0];
-      isValid = false
-    }
-
-    if (!passValidator.isValid) {
-      errors.password = passValidator.errors[0];
-      isValid = false
-    }
-
-    if (!repeatPassValidator.isValid) {
-      errors.repeatPassword = repeatPassValidator.errors[0];
-      isValid = false
-    }
-
-    return { isValid, errors };
-  }
-
-  singleValidate = (e) => {
-    e.preventDefault();
-
-    const { errors } = this.state;
-    const { name, value } = e.target;
-    const methodName = `${name}Validation`;
-
-    const result = this[methodName](value);
-    errors[name] = result.isValid ? '' : result.errors[0];
-
-    return this.setState({ errors });
-  }
-
-  removeError = (e) => {
-    const { name } = e.target;
-    const { errors } = this.state;
-
-    if (!!errors[name].length) {
-      this.setState({
-        errors: {
-          ...this.state.errors,
-          [name]: '',
-        }
-      })
-    }
-  }
-
-  nameValidation = (name) => {
-    return Validators(name).isMinLength(3).isMaxLength(30).getResult();
-  }
-
-  emailValidation = (email) => {
-    return Validators(email).isEmail().getResult();
-  }
-
-  passwordValidation = (password) => {
-    return Validators(password).isMinLength(6).isMaxLength(60).getResult();
-  }
-
-  repeatPasswordValidation = (repeatPassword) => {
-    const { password } = this.state
-    return Validators(repeatPassword).isEqual(password).getResult();
-  }
-
-  resetErrors = () => {
-    this.setState({
-      errors: {
-        name: '',
-        email: '',
-        password: '',
-        repeatPassword: '',
-      },
-    })
-  }
-
-  cleanForm = () => {
-    this.setState({
-      name: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
-    });
   }
 
   render () {
     const {
-      name,
-      email,
-      password,
-      repeatPassword,
+      values,
       errors,
-    } = this.state;
+      isLoading,
+      handleChange,
+      handleBlur,
+      handleFocus,
+      handleSubmit,
+      isFormClean,
+    } = this.props;
 
-    const { isLoading } = this.props;
+    const { name, email, password, repeatPassword } = values;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <Label for="name">Nombre</Label>
           <Input
@@ -188,9 +47,9 @@ class SignupForm extends Component {
             type="text"
             placeholder="John"
             value={name}
-            onChange={this.updateState}
-            onBlur={this.singleValidate}
-            onFocus={this.removeError}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             invalid={!!errors.name}
           />
           <FormFeedback>{errors.name}</FormFeedback>
@@ -204,9 +63,9 @@ class SignupForm extends Component {
             type="email"
             placeholder="john.doe@mail.com"
             value={email}
-            onChange={this.updateState}
-            onBlur={this.singleValidate}
-            onFocus={this.removeError}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             invalid={!!errors.email}
           />
           <FormFeedback>{errors.email}</FormFeedback>
@@ -219,9 +78,9 @@ class SignupForm extends Component {
             name="password"
             type="password"
             value={password}
-            onChange={this.updateState}
-            onBlur={this.singleValidate}
-            onFocus={this.removeError}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             invalid={!!errors.password}
           />
           <FormFeedback>{errors.password}</FormFeedback>
@@ -234,9 +93,9 @@ class SignupForm extends Component {
             name="repeatPassword"
             type="password"
             value={repeatPassword}
-            onChange={this.updateState}
-            onBlur={this.singleValidate}
-            onFocus={this.removeError}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             invalid={!!errors.repeatPassword}
           />
           <FormFeedback>{errors.repeatPassword}</FormFeedback>
@@ -255,9 +114,26 @@ class SignupForm extends Component {
 };
 
 SignupForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
   isSignupSuccess: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  values: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    repeatPassword: PropTypes.string.isRequired,
+  }).isRequired,
+  errors: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    repeatPassword: PropTypes.string.isRequired,
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  handleFocus: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  isFormClean: PropTypes.func.isRequired,
+  cleanForm: PropTypes.func.isRequired,
 };
 
 export default  SignupForm;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SignupForm from '../Components/SignupForm';
+import SignupFormWithControlled from '../Components/SignupFormWithControlled';
 import { signupWithEmailAndPassword } from '../Actions/signup';
 
 const Signup = ({ signupWithEmailAndPassword, signup }) => {
@@ -29,8 +29,8 @@ const Signup = ({ signupWithEmailAndPassword, signup }) => {
           <Alert color="success" isOpen={isSignupSuccess}>
             {signupSuccessMessage}
           </Alert>
-          <SignupForm
-            onSubmit={handleSubmit}
+          <SignupFormWithControlled
+            handleSubmit={handleSubmit}
             isSignupSuccess={isSignupSuccess}
             isLoading={isLoading}
           />

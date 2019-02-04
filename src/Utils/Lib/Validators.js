@@ -41,11 +41,16 @@ export const Validators = (value, errors = []) => ({
     return Validators(value, errors);
   },
 
-  validate: function (valueToCheck, rules = {}) {
+  validate: function (globalValues, valueToCheck, rules = {}) {
     let validator = Validators(valueToCheck);
 
     for (let rule in rules) {
-      const valueToValidate = rules[rule];
+      let valueToValidate = rules[rule];
+
+      if (rule === 'isEqual') {
+        valueToValidate = globalValues[valueToValidate];
+      }
+
       validator = validator[rule](valueToValidate);
     }
 
