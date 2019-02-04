@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SigninForm from '../Components/SigninForm';
+import SigninFormWithControlled from '../Components/SigninFormWithControlled';
 import { signinWithEmailAndPassword } from '../Actions/signin';
 
 const Signin = ({ signin, signinWithEmailAndPassword }) => {
@@ -20,8 +20,8 @@ const Signin = ({ signin, signinWithEmailAndPassword }) => {
           <Alert color="danger" isOpen={isSigninError}>
             {signinErrorMessage}
           </Alert>
-          <SigninForm
-            onSubmit={handleSubmit}
+          <SigninFormWithControlled
+            handleSubmit={handleSubmit}
             isSigninLoading={isSigninLoading}
           />
         </Col>
