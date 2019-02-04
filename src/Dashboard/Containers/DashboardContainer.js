@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Row,
   Col,
-  Button,
   Input,
   Table,
 } from 'reactstrap';
@@ -69,7 +69,7 @@ const DashboardContainer = () => {
           />
         </Col>
         <Col sm="6">
-          <Button color="primary" className="float-right">AGREGAR</Button>
+          <Link className="btn btn-primary float-right" to="/main/addUser">AGREGAR</Link>
         </Col>
       </Row>
 

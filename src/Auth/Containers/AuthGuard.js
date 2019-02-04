@@ -22,7 +22,7 @@ class AuthGuard extends Component {
         if (user.emailVerified) {
           const { uid } = user;
           await setUserData(uid);
-          history.push('/main');
+          history.push('/main/dashboard');
         } else {
           const msg = 'Necesitas validar tu correo. Ha sido enviado un nuevo email de verificación';
           setSigninErrorMsg(msg);
