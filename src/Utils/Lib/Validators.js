@@ -1,4 +1,12 @@
 export const Validators = (value, errors = []) => ({
+  isRequired: function (verify) {
+    if (verify && !value) {
+      errors.push('Este valor es requerido');
+    }
+
+    return Validators(value, errors);
+  },
+
   isEmail: function () {
     const reg = /\S+@\S+\.\S+/;
 
@@ -31,6 +39,17 @@ export const Validators = (value, errors = []) => ({
     }
 
     return Validators(value, errors);
+  },
+
+  validate: function (valueToCheck, rules = {}) {
+    let validator = Validators(valueToCheck);
+
+    for (let rule in rules) {
+      const valueToValidate = rules[rule];
+      validator = validator[rule](valueToValidate);
+    }
+
+    return validator.getResult();
   },
 
   getResult: function () {
