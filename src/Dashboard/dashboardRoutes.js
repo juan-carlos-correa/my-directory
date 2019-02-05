@@ -7,18 +7,22 @@ const routes = [
   {
     path: '/main/dashboard',
     component: DashboardContainer,
+    isPrivate: true,
   },
   {
     path: '/main/profile',
     component: ProfileContainer,
+    isPrivate: true,
   },
   {
     path: '/main/updatePassword',
     component: UpdatePasswordContainer,
+    isPrivate: true,
   },
   {
     path: '/main/addUser',
     component: AddUserContainer,
+    isPrivate: true,
   },
 ];
 

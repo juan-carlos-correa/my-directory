@@ -1,6 +1,12 @@
 import { SET_USER_DATA, REMOVE_USER_DATA } from './types';
+import { SET_IS_LOADING_FETCH } from '../../Utils/Actions/fetch/types';
 import UserFirebase from '../../Services/Firebase/Models/UserFirebase';
 import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmailAndPassword';
+
+const isLoading = (value) => ({
+  type: SET_IS_LOADING_FETCH,
+  value,
+})
 
 export const setUserData = async (dispatch, userUid) => {
   try {
@@ -26,7 +32,25 @@ export const removeUserDataAction = (dispatch) => {
   }
 }
 
+export const verifyAuth = () => (dispatch) => {
+  dispatch(isLoading(true));
+
+  const authWithEmailAndPassword = new AuthWithEmailAndPassword();
+
+  authWithEmailAndPassword.getAuth().onAuthStateChanged(async (user) => {
+    if (user && user.emailVerified) {
+      const { uid } = user;
+      await setUserData(dispatch, uid);
+      dispatch(isLoading(false));
+    } else {
+      removeUserDataAction(dispatch);
+      dispatch(isLoading(false));
+    }
+  })
+}
+
 export default {
   setUserData,
   removeUserDataAction,
+  verifyAuth,
 };

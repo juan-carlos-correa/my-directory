@@ -10,11 +10,17 @@ const Routes = ({
 }) => (
   <Route
     path={path}
-    render={(props) => (
-      isPrivate && !user.uid
-      ? <Redirect to="/signin" />
-      : <Component user={user} {...props} {...rest} />
-    )}
+    render={(props) => {
+      if (isPrivate && !user.email) {
+        return <Redirect to="/signin" />;
+      }
+
+      if (!isPrivate && user && user.uid) {
+        return <Redirect to="/main/dashboard" />
+      }
+
+      return <Component user={user} {...props} {...rest} />
+    }}
   />
 );
 
