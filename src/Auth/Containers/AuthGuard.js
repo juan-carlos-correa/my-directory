@@ -13,7 +13,7 @@ class AuthGuard extends Component {
   render () {
     const { children, user, isLoading } = this.props;
 
-    if (isLoading) {
+    if (isLoading && (!user.email)) {
       return (<div>Loading...</div>);
     }
 

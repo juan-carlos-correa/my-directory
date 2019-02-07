@@ -10,6 +10,30 @@ import PropTypes from 'prop-types';
 import { updateUser } from '../Actions/user';
 import ProfileForm from '../Components/ProfileForm';
 import ProfileBreadCrumbs from '../Components/ProfileBreadCrumbs';
+import WithControlledForm from '../../Utils/Components/WithControlledForm';
+
+const formValidations = {
+  name: {
+    isRequired: true,
+    isMinLength: 3,
+    isMaxLength: 30,
+  },
+  job: {
+    isRequired: true,
+    isMinLength: 3,
+    isMaxLength: 30,
+  },
+  subsidiary: {
+    isRequired: true,
+    isMinLength: 3,
+    isMaxLength: 30,
+  },
+  phone: {
+    isRequired: true,
+    isMinLength: 7,
+    isMaxLength: 15,
+  }
+};
 
 const ProfileContainer = ({ user, updateUser, fetch }) => {
   const { uid } = user;
@@ -18,6 +42,8 @@ const ProfileContainer = ({ user, updateUser, fetch }) => {
   const handleSubmit = ({ name, phone, job, subsidiary }) => {
     updateUser(uid, { name, phone, job, subsidiary });
   }
+
+  const ProfileFormWithControlled = WithControlledForm(ProfileForm, user, formValidations);
 
   return (
     <section className="mt-2">
@@ -46,7 +72,10 @@ const ProfileContainer = ({ user, updateUser, fetch }) => {
             )
           }
 
-          <ProfileForm user={user} handleSubmit={handleSubmit} />
+          <ProfileFormWithControlled
+            handleSubmit={handleSubmit}
+            isLoading={isLoading}
+          />
         </Col>
       </Row>
     </section>

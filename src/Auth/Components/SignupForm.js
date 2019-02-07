@@ -32,7 +32,6 @@ class SignupForm extends Component {
       handleBlur,
       handleFocus,
       handleSubmit,
-      isFormClean,
     } = this.props;
 
     const { name, email, password, repeatPassword } = values;
