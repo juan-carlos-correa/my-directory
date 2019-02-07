@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updatePassword } from '../Actions/user';
-import UpdatePasswordForm from '../Components/UpdatePasswordForm';
+import UpdatePasswordFormWithControlled from '../Components/UpdatePasswordFormWithControlled';
 import ProfileBreadCrumbs from '../Components/ProfileBreadCrumbs';
 
 const ProfileContainer = ({ user, updatePassword, fetch }) => {
@@ -46,7 +46,10 @@ const ProfileContainer = ({ user, updatePassword, fetch }) => {
             )
           }
 
-          <UpdatePasswordForm handleSubmit={handleSubmit} />
+          <UpdatePasswordFormWithControlled
+            handleSubmit={handleSubmit}
+            isLoading={isLoading}
+          />
         </Col>
       </Row>
     </section>

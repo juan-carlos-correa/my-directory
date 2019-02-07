@@ -5,7 +5,7 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 const ProfileBreadCrumbs = ({ current }) => (
   <Breadcrumb>
     <BreadcrumbItem>
-      <Link to="/main">Dashboard</Link>
+      <Link to="/main/dashboard">Dashboard</Link>
     </BreadcrumbItem>
     <BreadcrumbItem active>{current}</BreadcrumbItem>
   </Breadcrumb>

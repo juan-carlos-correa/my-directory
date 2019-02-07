@@ -30,7 +30,7 @@ const WithControlledForm = (FormComponent, state = {}, formValidations = {}) => 
       for (let name in values) {
         const validations = formValidations[name];
         const value = values[name];
-        const result = Validators().validate(value, validations);
+        const result = Validators().validate(values, value, validations);
 
         if (!result.isValid) {
           isFormValid = false;
