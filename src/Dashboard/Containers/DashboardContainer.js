@@ -5,6 +5,8 @@ import {
   Col,
   Input,
   Table,
+  Breadcrumb,
+  BreadcrumbItem,
 } from 'reactstrap';
 
 const fakeData = [
@@ -60,8 +62,12 @@ const fakeData = [
 
 const DashboardContainer = () => {
   return (
-    <section>
-      <Row className="mt-2">
+    <section className="mt-2">
+      <Breadcrumb>
+        <BreadcrumbItem active>Dashboard</BreadcrumbItem>
+      </Breadcrumb>
+
+      <Row className="mt-4">
         <Col sm="6">
           <Input
             type="text"
@@ -69,11 +75,11 @@ const DashboardContainer = () => {
           />
         </Col>
         <Col sm="6">
-          <Link className="btn btn-primary float-right" to="/main/addUser">AGREGAR</Link>
+          <Link className="btn btn-primary float-right" to="/main/addUser">INVITAR</Link>
         </Col>
       </Row>
 
-      <Table className="mt-2">
+      <Table className="mt-4">
         <thead>
           <tr>
             <th>Nombre</th>
