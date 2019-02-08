@@ -9,6 +9,7 @@ const formState = {
   subsidiary: '',
   password: '',
   repeatPassword: '',
+  isAdmin: false,
 };
 
 const formValidations = {
@@ -48,7 +49,8 @@ const formValidations = {
     isMinLength: 6,
     isMaxLength: 60,
     isEqual: 'password',
-  }
+  },
+  isAdmin: {},
 };
 
 const UserFormControlled = WithControlledForm(UserForm, formState, formValidations);

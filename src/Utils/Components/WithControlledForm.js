@@ -64,10 +64,16 @@ const WithControlledForm = (FormComponent, state = {}, formValidations = {}) => 
       });
     }
 
-    handleChange = ({ target }) => {
-      const { name, value } = target;
+    handleChange = (e) => {
+      const { name, value, type, checked } = e.target;
       const { values } = this.state;
-      values[name] = value;
+      let valueToAssign = value;
+
+      if (type === 'checkbox') {
+        valueToAssign = checked;
+      }
+
+      values[name] = valueToAssign;
       this.setState({ values });
     }
 
