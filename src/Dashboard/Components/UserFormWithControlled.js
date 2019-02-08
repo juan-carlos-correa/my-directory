@@ -18,7 +18,7 @@ const formValidations = {
     isMaxLength: 90,
   },
   job: {
-    isRequired: true,
+    isRequired: false,
     isMinLength: 3,
     isMaxLength: 90,
   },
@@ -29,12 +29,12 @@ const formValidations = {
     isEmail: true,
   },
   phone: {
-    isRequired: true,
-    isMinLength: 3,
-    isMaxLength: 90,
+    isRequired: false,
+    isMinLength: 7,
+    isMaxLength: 15,
   },
   subsidiary: {
-    isRequired: true,
+    isRequired: false,
     isMinLength: 3,
     isMaxLength: 90,
   },

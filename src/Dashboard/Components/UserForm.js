@@ -42,22 +42,6 @@ const UserForm = ({
     </FormGroup>
 
     <FormGroup>
-      <Label for="job">Puesto</Label>
-      <Input
-        id="job"
-        name="job"
-        type="text"
-        value={job}
-        placeholder="Web developer"
-        invalid={!!errors.job}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      />
-      <FormFeedback>{errors.job}</FormFeedback>
-    </FormGroup>
-
-    <FormGroup>
       <Label for="email">Email</Label>
       <Input
         id="email"
@@ -74,11 +58,27 @@ const UserForm = ({
     </FormGroup>
 
     <FormGroup>
+      <Label for="job">Puesto</Label>
+      <Input
+        id="job"
+        name="job"
+        type="text"
+        value={job}
+        placeholder="Web developer"
+        invalid={!!errors.job}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+      <FormFeedback>{errors.job}</FormFeedback>
+    </FormGroup>
+
+    <FormGroup>
       <Label for="phone">Teléfono</Label>
       <Input
         id="phone"
         name="phone"
-        type="text"
+        type="tel"
         value={phone}
         placeholder="3121234567"
         invalid={!!errors.phone}

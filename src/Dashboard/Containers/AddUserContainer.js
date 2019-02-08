@@ -10,7 +10,7 @@ const AddUserContainer = () => {
   return (
     <section>
       <Row className="justify-content-center">
-        <Col sm="6">
+        <Col xs="12" sm="8" md="6">
           <h2 className="text-center">Invitar usuario</h2>
           <UserFormWithControlled handleSubmit={handleSubmit} />
         </Col>
