@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Form,
   FormGroup,
   Label,
   Input,
   FormFeedback,
+  Button,
 } from 'reactstrap';
 
 const UserForm = ({
@@ -15,6 +17,8 @@ const UserForm = ({
   email,
   phone,
   subsidiary,
+  password,
+  repeatPassword,
   handleChange,
   handleBlur,
   handleFocus,
@@ -36,6 +40,110 @@ const UserForm = ({
       />
       <FormFeedback>{errors.name}</FormFeedback>
     </FormGroup>
+
+    <FormGroup>
+      <Label for="job">Puesto</Label>
+      <Input
+        id="job"
+        name="job"
+        type="text"
+        value={job}
+        placeholder="Web developer"
+        invalid={!!errors.job}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+      <FormFeedback>{errors.job}</FormFeedback>
+    </FormGroup>
+
+    <FormGroup>
+      <Label for="email">Email</Label>
+      <Input
+        id="email"
+        name="email"
+        type="text"
+        value={email}
+        placeholder="john.doe@mail.com"
+        invalid={!!errors.email}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+      <FormFeedback>{errors.email}</FormFeedback>
+    </FormGroup>
+
+    <FormGroup>
+      <Label for="phone">Teléfono</Label>
+      <Input
+        id="phone"
+        name="phone"
+        type="text"
+        value={phone}
+        placeholder="3121234567"
+        invalid={!!errors.phone}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+      <FormFeedback>{errors.phone}</FormFeedback>
+    </FormGroup>
+
+    <FormGroup>
+      <Label for="subsidiary">Oficina</Label>
+      <Input
+        id="subsidiary"
+        name="subsidiary"
+        type="text"
+        value={subsidiary}
+        placeholder="Guadalajara"
+        invalid={!!errors.subsidiary}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+      <FormFeedback>{errors.subsidiary}</FormFeedback>
+    </FormGroup>
+
+     <FormGroup>
+        <Label for="password">Contraseña</Label>
+        <Input
+          id="password"
+          name="password"
+          type="text"
+          value={password}
+          placeholder="******"
+          invalid={!!errors.password}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        <FormFeedback>{errors.password}</FormFeedback>
+      </FormGroup>
+
+       <FormGroup>
+        <Label for="repeatPassword">Repetir contraseña</Label>
+        <Input
+          id="repeatPassword"
+          name="repeatPassword"
+          type="text"
+          value={repeatPassword}
+          placeholder="******"
+          invalid={!!errors.repeatPassword}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        <FormFeedback>{errors.repeatPassword}</FormFeedback>
+      </FormGroup>
+
+      <FormGroup className="text-center">
+        <Button color="primary">INVITAR</Button>
+      </FormGroup>
+
+      <FormGroup className="text-center">
+        <Link to='/main/dashboard'>Cancelar</Link>
+      </FormGroup>
   </Form>
 );
 

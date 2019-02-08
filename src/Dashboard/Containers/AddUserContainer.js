@@ -1,45 +1,6 @@
 import React from 'react';
-import UserForm from '../Components/UserForm';
-import WithControlledForm from '../../Utils/Components/WithControlledForm';
-
-const formState = {
-  name: '',
-  job: '',
-  email: '',
-  phone: '',
-  subsidiary: '',
-};
-
-const formValidations = {
-  name: {
-    isRequired: true,
-    isMinLength: 3,
-    isMaxLength: 90,
-  },
-  job: {
-    isRequired: true,
-    isMinLength: 3,
-    isMaxLength: 90,
-  },
-  email: {
-    isRequired: true,
-    isMinLength: 3,
-    isMaxLength: 90,
-    isEmail: true,
-  },
-  phone: {
-    isRequired: true,
-    isMinLength: 3,
-    isMaxLength: 90,
-  },
-  subsidiary: {
-    isRequired: true,
-    isMinLength: 3,
-    isMaxLength: 90,
-  },
-};
-
-const UserFormControlled = WithControlledForm(UserForm, formState, formValidations);
+import { Row, Col } from 'reactstrap';
+import UserFormWithControlled from '../Components/UserFormWithControlled';
 
 const AddUserContainer = () => {
   const handleSubmit = (values) => {
@@ -48,8 +9,12 @@ const AddUserContainer = () => {
 
   return (
     <section>
-      <h2>AddUserContainer</h2>
-      <UserFormControlled handleSubmit={handleSubmit} />
+      <Row className="justify-content-center">
+        <Col sm="6">
+          <h2 className="text-center">Invitar usuario</h2>
+          <UserFormWithControlled handleSubmit={handleSubmit} />
+        </Col>
+      </Row>
     </section>
   );
 }
