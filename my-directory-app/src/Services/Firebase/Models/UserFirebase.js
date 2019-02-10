@@ -9,15 +9,24 @@ export default class UserFirebase extends FirebaseDatabase {
     subsidiary = '',
     email = '',
     isAdmin = false,
+    defaultPassword = '',
   }) {
     try {
-      const userStored = await this.db
-      .collection('users')
-      .doc(userId)
-      .set(
-        { name, phone, job, subsidiary, email, isAdmin },
-        { merge: true }
-      );
+      let userStored = null;
+
+      if (userId) {
+        userStored = await this.db
+          .collection('users')
+          .doc(userId)
+          .set(
+            { name, phone, job, subsidiary, email, isAdmin, defaultPassword },
+            { merge: true }
+          );
+      } else {
+        userStored = await this.db
+          .collection('users')
+          .add({ name, phone, job, subsidiary, email, isAdmin, defaultPassword });
+      }
 
       return userStored;
     } catch (e) {

@@ -24,7 +24,7 @@ const UserForm = ({
     email,
     phone,
     subsidiary,
-    password,
+    defaultPassword,
     repeatPassword,
   } = values;
 
@@ -111,19 +111,19 @@ const UserForm = ({
       </FormGroup>
 
        <FormGroup>
-          <Label for="password">Contraseña</Label>
+          <Label for="defaultPassword">Contraseña</Label>
           <Input
-            id="password"
-            name="password"
+            id="defaultPassword"
+            name="defaultPassword"
             type="password"
-            value={password}
+            value={defaultPassword}
             placeholder="******"
-            invalid={!!errors.password}
+            invalid={!!errors.defaultPassword}
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
           />
-          <FormFeedback>{errors.password}</FormFeedback>
+          <FormFeedback>{errors.defaultPassword}</FormFeedback>
         </FormGroup>
 
          <FormGroup>

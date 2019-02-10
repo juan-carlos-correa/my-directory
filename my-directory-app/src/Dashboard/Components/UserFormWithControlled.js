@@ -7,7 +7,7 @@ const formState = {
   email: '',
   phone: '',
   subsidiary: '',
-  password: '',
+  defaultPassword: '',
   repeatPassword: '',
 };
 
@@ -38,7 +38,7 @@ const formValidations = {
     isMinLength: 3,
     isMaxLength: 90,
   },
-  password: {
+  defaultPassword: {
     isRequired: true,
     isMinLength: 6,
     isMaxLength: 60,
@@ -47,7 +47,7 @@ const formValidations = {
     isRequired: true,
     isMinLength: 6,
     isMaxLength: 60,
-    isEqual: 'password',
+    isEqual: 'defaultPassword',
   },
 };
 

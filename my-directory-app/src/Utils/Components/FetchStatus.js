@@ -14,6 +14,8 @@ const FetchStatus = ({ isLoading, successMsg, errorMsg }) => {
   if (errorMsg) {
     return (<Alert color="success" isOpen>{errorMsg}</Alert>);
   }
+
+  return '';
 };
 
 FetchStatus.propTypes = {
