@@ -10,7 +10,7 @@ exports.createUser = functions.firestore
     const newValue = snap.data();
 
     // access a particular field as you would any JS property
-    const name = newValue.name;
+    const email = newValue.email;
     const password = newValue.defaultPassword;
     const isAdmin = newValue.isAdmin;
 
@@ -19,7 +19,7 @@ exports.createUser = functions.firestore
       return false;
     }
 
-    return admin.auth().createUser({ name, password })
+    return admin.auth().createUser({ email, password })
       .then(() => console.log('user created'))
       .catch((err) => console.log(err));
   });
