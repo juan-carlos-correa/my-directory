@@ -26,7 +26,6 @@ const UserForm = ({
     subsidiary,
     password,
     repeatPassword,
-    isAdmin,
   } = values;
 
   return (
@@ -141,21 +140,6 @@ const UserForm = ({
             onBlur={handleBlur}
           />
           <FormFeedback>{errors.repeatPassword}</FormFeedback>
-        </FormGroup>
-
-        <FormGroup check>
-          <Label check>
-            <Input
-              id="isAdmin"
-              name="isAdmin"
-              type="checkbox"
-              value={isAdmin}
-              onChange={handleChange}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
-            Es administrador
-          </Label>
         </FormGroup>
 
         <FormGroup className="text-center">
