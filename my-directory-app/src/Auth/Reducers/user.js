@@ -1,6 +1,9 @@
 import { SET_USER_DATA, REMOVE_USER_DATA } from '../Actions/types';
 
-const initialState = {};
+const initialState = {
+  emailVerified: false,
+  email: '',
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

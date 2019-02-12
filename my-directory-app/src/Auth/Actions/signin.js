@@ -1,38 +1,25 @@
 import {
-  SET_IS_SIGNIN_ERROR,
-  SET_SIGNIN_ERROR_MESSAGE,
-  SET_IS_SIGNIN_LOADING,
-} from '../Actions/types';
+  SET_IS_LOADING_FETCH,
+  SET_ERROR_MSG,
+  SET_RESET_FETCH,
+} from '../../Utils/Actions/fetch/types';
 import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmailAndPassword';
-
-export const setSigninErrorMessageAction = (msg) => ({
-  type: SET_SIGNIN_ERROR_MESSAGE,
-  value: msg,
-});
-
-export const setIsSigninErrorAction = (value) => ({
-  type: SET_IS_SIGNIN_ERROR,
-  value,
-});
 
 export const signinWithEmailAndPassword = async (dispatch, { email, password }) => {
   const authWithEmailAndPassword = new AuthWithEmailAndPassword();
 
   try {
-    dispatch({ type: SET_IS_SIGNIN_LOADING, value: true });
+    dispatch({ type: SET_IS_LOADING_FETCH, value: true });
     await authWithEmailAndPassword.login({ email, password });
   } catch ({ code }) {
     const msg = authWithEmailAndPassword.getErrorMessageSignin(code);
-    dispatch({ type: SET_IS_SIGNIN_ERROR, value: true });
-    dispatch(setIsSigninErrorAction(true));
-    dispatch(setSigninErrorMessageAction(msg));
+    dispatch({ type: SET_ERROR_MSG, value: msg });
+    setTimeout(() => dispatch({ type: SET_RESET_FETCH }), 6000);
   } finally {
-    dispatch({ type: SET_IS_SIGNIN_LOADING, value: false });
+    dispatch({ type: SET_IS_LOADING_FETCH, value: false });
   }
 }
 
 export default {
   signinWithEmailAndPassword,
-  setSigninErrorMessageAction,
-  setIsSigninErrorAction,
 };

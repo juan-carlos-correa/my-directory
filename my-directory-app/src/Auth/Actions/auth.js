@@ -1,5 +1,5 @@
 import { SET_USER_DATA, REMOVE_USER_DATA } from './types';
-import { SET_IS_LOADING_FETCH } from '../../Utils/Actions/fetch/types';
+import { SET_IS_LOADING_FETCH, SET_ERROR_MSG, SET_RESET_FETCH } from '../../Utils/Actions/fetch/types';
 import UserFirebase from '../../Services/Firebase/Models/UserFirebase';
 import AuthWithEmailAndPassword from '../../Services/Firebase/Auth/AuthWithEmailAndPassword';
 
@@ -12,8 +12,8 @@ export const setUserData = async (dispatch, userUid) => {
   try {
     const userFirebase = new UserFirebase();
     const user = await userFirebase.getUserData(userUid);
-    const payload = { ...user.data(), uid: userUid };
-
+    const payload = { ...user.data(), uid: userUid, emailVerified: true };
+    console.log(payload)
     if (user.exists) {
       dispatch({ type: SET_USER_DATA, payload });
     }
@@ -41,11 +41,15 @@ export const verifyAuth = () => (dispatch) => {
     if (user && user.emailVerified) {
       const { uid } = user;
       await setUserData(dispatch, uid);
-      dispatch(isLoading(false));
+    } else if (user && !user.emailVerified) {
+      dispatch({ type: SET_ERROR_MSG, value: 'Necesitas validar tu correo' });
+      dispatch({ type: SET_USER_DATA, payload: { emailVerified: false, email: user.email } });
+      setTimeout(() => dispatch({ type: SET_RESET_FETCH }), 6000);
     } else {
-      removeUserDataAction(dispatch);
-      dispatch(isLoading(false));
+      dispatch({ type: REMOVE_USER_DATA });
     }
+
+    dispatch(isLoading(false));
   })
 }
 

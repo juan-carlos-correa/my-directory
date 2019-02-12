@@ -12,7 +12,7 @@ const FetchStatus = ({ isLoading, successMsg, errorMsg }) => {
   }
 
   if (errorMsg) {
-    return (<Alert color="success" isOpen>{errorMsg}</Alert>);
+    return (<Alert color="danger" isOpen>{errorMsg}</Alert>);
   }
 
   return '';

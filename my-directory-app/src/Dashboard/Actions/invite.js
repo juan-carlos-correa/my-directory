@@ -18,7 +18,7 @@ export const inviteUser = (dispatch) => async ({
     dispatch({ type: SET_IS_LOADING_FETCH, value: true });
     const userFirebase = new UserFirebase();
 
-    const result = await userFirebase.writeUserData({
+    await userFirebase.writeUserData({
       name,
       job,
       email,
